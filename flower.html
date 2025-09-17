@@ -316,9 +316,26 @@
 
   <!-- Title -->
   <h1 class="title"><span id="title"></span></h1>
+
+  <!-- Import Javascript -->
+  <script src="js/main.js"></script>
+
+  <!-- Tambahkan Audio -->
+  <audio id="bg-music" loop>
+    <source src="music/lagu.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Script untuk cek izin dan autoplay -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const music = document.getElementById("bg-music");
+
+      if (localStorage.getItem("musicAllowed") === "true") {
+        music.play().catch(() => {
+          console.log("Autoplay diblokir, user perlu interaksi lagi.");
+        });
+      }
+    });
+  </script>
 </body>
-
 </html>
-
-<!-- Import Javascript -->
-<script src="js/main.js"></script>
