@@ -1,102 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Selamat Malam Regia Cantikk</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/main.js"></script>
-
-  <style>
-    /* Efek tambahan biar lebih cantik ✨ */
-    body {
-      background: linear-gradient(135deg, #ffb6c1, #ffe6f0);
-      font-family: "Poppins", sans-serif;
-      overflow: hidden;
-      transition: background 2s ease-in-out;
-      animation: bgFlow 12s ease infinite alternate;
-    }
-
-    @keyframes bgFlow {
-      0% { background: linear-gradient(135deg, #ffb6c1, #ffe6f0); }
-      50% { background: linear-gradient(135deg, #ffc0cb, #fff5f8); }
-      100% { background: linear-gradient(135deg, #ffe6f0, #ffd6e7); }
-    }
-
-    #title {
-      font-size: 20px; /* Mengecilkan tulisan */
-      font-weight: bold;
-      text-align: center;
-      color: #fff;
-      text-shadow: 0 0 12px rgba(255, 105, 180, 0.9);
-      margin-top: 50px;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 8px #ff80bf, 0 0 16px #ff66b2; }
-      to { text-shadow: 0 0 20px #ff4da6, 0 0 40px #ff3385; }
-    }
-
-    /* Tombol Play/Stop opsional */
-    .music-control {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.3);
-      border: 1px solid #fff;
-      border-radius: 25px;
-      padding: 10px 20px;
-      color: #fff;
-      font-weight: 600;
-      backdrop-filter: blur(5px);
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .music-control:hover {
-      background: rgba(255, 255, 255, 0.5);
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="images/gift.png" type="image/x-icon" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Happy Moment</title>
 </head>
 
 <body>
-  <h1 id="title"></h1>
+  <h1 class="title"></h1>
 
-  <!-- === Tambahan audio background === -->
-  <audio id="bgMusic" autoplay loop>
-    <source src="Andra And The Backbone - Sempurna (Lyrics).mp3" type="audio/mpeg">
+  <!-- Tombol Open -->
+  <div style="position: absolute; top: 60vh; width: 100%; display: flex; justify-content: center;">
+    <a href="flower.html" class="btn" id="openBtn">
+      <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" class="sparkle">
+        <path
+          d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z">
+        </path>
+      </svg>
+      <span class="text">Open</span>
+    </a>
+  </div>
+
+  <!-- 🎵 Lagu offline -->
+  <audio id="bg-music" autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
     Browser kamu tidak mendukung elemen audio.
   </audio>
 
-  <!-- Tombol untuk kontrol musik -->
-  <button class="music-control" onclick="toggleMusic()">⏸️ Pause / ▶️ Play</button>
+  <!-- Tombol kontrol musik opsional -->
+  <div style="position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: center;">
+    <button id="toggleMusic"
+      style="background: rgba(255,255,255,0.2); border: 1px solid #fff; color: #fff; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: 600;">
+      ⏸️ Pause / ▶️ Play
+    </button>
+  </div>
+
+  <script src="js/index.js"></script>
 
   <script>
-    // Kontrol musik
-    const bgMusic = document.getElementById('bgMusic');
-    function toggleMusic() {
-      if (bgMusic.paused) {
-        bgMusic.play();
+    const openBtn = document.getElementById("openBtn");
+    const music = document.getElementById("bg-music");
+    const toggleMusicBtn = document.getElementById("toggleMusic");
+
+    // 🎶 Jika autoplay diblokir, mulai musik saat interaksi pertama
+    document.addEventListener("click", () => {
+      if (music.paused) music.play();
+    }, { once: true });
+
+    // 🎛️ Tombol Play/Pause
+    toggleMusicBtn.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
       } else {
-        bgMusic.pause();
+        music.pause();
       }
-    }
+    });
 
-    // Efek teks berjalan
-    const titles = ('SELAMAT MALAM REGIA CANTIKK, SEMANGAT UTSNYAAAA YAA 💖').split('');
-    const titleElement = document.getElementById('title');
-    let index = 0;
+    // 🔘 Tombol Open
+    openBtn.addEventListener("click", function (e) {
+      e.preventDefault(); // cegah pindah halaman langsung
 
-    function showTitle() {
-      if (index < titles.length) {
-        titleElement.textContent += titles[index];
-        index++;
-        setTimeout(showTitle, 150);
-      }
-    }
-    showTitle();
+      // fade out musik perlahan
+      let vol = music.volume;
+      const fade = setInterval(() => {
+        if (vol > 0.05) {
+          vol -= 0.05;
+          music.volume = vol;
+        } else {
+          clearInterval(fade);
+          music.pause();
+          window.location.href = "flower.html";
+        }
+      }, 100);
+    });
   </script>
 </body>
 </html>
