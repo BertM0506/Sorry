@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music Background</title>
+</head>
+<body style="margin:0; padding:0; background:transparent;">
+  <audio id="bg-music" autoplay loop>
+    <source src="Andra And The Backbone - Sempurna (Lyrics).mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const music = document.getElementById("bg-music");
+
+    // Pastikan musik tetap hidup meski halaman lain dimuat di parent
+    window.addEventListener("message", (event) => {
+      if (event.data === "pauseMusic") music.pause();
+      if (event.data === "playMusic") music.play();
+    });
+  </script>
+</body>
+</html>
