@@ -3,9 +3,10 @@ onload = () => {
   const c = setTimeout(() => {
     document.body.classList.remove("not-loaded");
 
-    const titles = ('SELAMAT MALAM REGIA CANTIKK, SEMANGAT UTSNYAAAA YAA ').split('')
-    const titleElement = document.getElementById('title');
-    let index = 0;
+    const titles = ('SELAMAT MALAM REGIA CANTIKK, SEMANGAT UTSNYAAAA YAA ').split('');
+const titleElement = document.getElementById('title');
+titleElement.style.fontSize = '15px';  // <== ukuran teks diubah di sini
+let index = 0;
 
     function appendTitle() {
       if (index < titles.length) {
