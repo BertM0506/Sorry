@@ -1,39 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player Iframe</title>
+  <meta charset="UTF-8">
+  <title>Music Background</title>
 </head>
 <body style="margin:0; padding:0; background:transparent;">
-    <audio id="bg-music" loop>
-        <source src="Andra And The Backbone - Sempurna (Lyrics).mp3" type="audio/mpeg">
-    </audio>
+  <audio id="bg-music" loop>
+    <source src="Andra And The Backbone - Sempurna (Lyrics).mp3" type="audio/mpeg">
+  </audio>
 
-    <script>
-        const music = document.getElementById("bg-music");
+  <script>
+    const music = document.getElementById("bg-music");
 
-        // Listener untuk menerima pesan dari jendela parent (halaman utama)
-        window.addEventListener("message", (event) => {
-            // Cek apakah pesan yang diterima adalah "playMusic"
-            if (event.data === "playMusic") {
-                // music.play() harus dipanggil sebagai respons terhadap interaksi user
-                // (klik pada halaman parent). Kita gunakan .catch() untuk menangani
-                // kasus jika browser memblokir pemutaran otomatis (autoplay policy).
-                music.play().catch(err => {
-                    console.log("Autoplay diblokir:", err);
-                    // Anda bisa menambahkan UI di sini jika diperlukan (misal: "Klik untuk memutar musik")
-                });
-            }
-            
-            // Cek apakah pesan yang diterima adalah "pauseMusic"
-            if (event.data === "pauseMusic") {
-                music.pause();
-            }
-        });
-
-        // Opsi: Coba putar otomatis saat dimuat, tetapi hanya akan berhasil jika ada kebijakan yang sangat longgar.
-        // music.play().catch(err => console.log("Coba putar otomatis diblokir saat halaman iframe dimuat."));
-    </script>
+    window.addEventListener("message", (event) => {
+      if (event.data === "playMusic") {
+        music.play().catch(err => console.log("Autoplay blocked:", err));
+      }
+      if (event.data === "pauseMusic") {
+        music.pause();
+      }
+    });
+  </script>
 </body>
 </html>
