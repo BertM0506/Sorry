@@ -2,46 +2,54 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="images/gift.png" type="image/x-icon">
-  <link rel="stylesheet" href="css/index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/gift.png" type="image/x-icon">
+    <link rel="stylesheet" href="css/index.css">
 
-  <title>FLOWERS FOR GIA</title>
+    <title>FLOWERS FOR GIA</title>
 </head>
 
 <body>
-  <!-- Background -->
-  <div class="night"></div>
+    <div class="night"></div>
 
-  <!-- Title -->
-  <h1 class="title"></h1>
+    <h1 class="title"></h1>
 
-  <!-- Tombol Open -->
-  <div style="position: absolute; top: 60vh; width: 100%; display: flex; justify-content: center;">
-    <a href="flower.html" class="btn" id="openBtn">
-      <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" class="sparkle">
-        <path
-          d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z">
-        </path>
-      </svg>
-      <span class="text">Open</span>
-    </a>
-  </div>
+    <div style="position: absolute; top: 60vh; width: 100%; display: flex; justify-content: center;">
+        <a href="flower.html" class="btn" id="openBtn">
+            <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" class="sparkle">
+                <path
+                    d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z">
+                </path>
+            </svg>
+            <span class="text">Open</span>
+        </a>
+    </div>
 
-  <!-- Iframe musik tersembunyi -->
-  <iframe src="music.html" id="musicFrame" style="display:none;"></iframe>
+    <iframe src="music.html" id="musicFrame" style="display:none;"></iframe>
 
-  <!-- Script -->
-  <script src="js/index.js"></script>
-  <script>
-    const openBtn = document.getElementById("openBtn");
+    <script src="js/index.js"></script>
+    <script>
+        const openBtn = document.getElementById("openBtn");
+        // Ambil elemen iframe musik
+        const musicFrame = document.getElementById("musicFrame"); 
 
-    openBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      window.location.href = "flower.html"; // pindah halaman tanpa matikan musik
-    });
-  </script>
+        openBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // KIRIM PESAN ke iframe agar mulai memutar musik
+            // Asumsi: music.html memiliki event listener postMessage untuk "playMusic"
+            if (musicFrame && musicFrame.contentWindow) {
+                musicFrame.contentWindow.postMessage("playMusic", "*");
+            }
+
+            // Beri jeda 800ms (0.8 detik) sebelum Pindah Halaman
+            // Ini memberi waktu bagi musik untuk mulai diputar
+            setTimeout(() => {
+                window.location.href = "flower.html";
+            }, 800);
+        });
+    </script>
 </body>
 
 </html>
