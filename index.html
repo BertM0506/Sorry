@@ -1,43 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sorry</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selamat Malam Regia Cantikk</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/main.js"></script>
+
+  <style>
+    /* Efek tambahan biar lebih cantik ✨ */
+    body {
+      background: linear-gradient(135deg, #ffb6c1, #ffe6f0);
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      transition: background 2s ease-in-out;
+      animation: bgFlow 12s ease infinite alternate;
+    }
+
+    @keyframes bgFlow {
+      0% { background: linear-gradient(135deg, #ffb6c1, #ffe6f0); }
+      50% { background: linear-gradient(135deg, #ffc0cb, #fff5f8); }
+      100% { background: linear-gradient(135deg, #ffe6f0, #ffd6e7); }
+    }
+
+    #title {
+      font-size: 20px; /* Mengecilkan tulisan */
+      font-weight: bold;
+      text-align: center;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(255, 105, 180, 0.9);
+      margin-top: 50px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 8px #ff80bf, 0 0 16px #ff66b2; }
+      to { text-shadow: 0 0 20px #ff4da6, 0 0 40px #ff3385; }
+    }
+
+    /* Tombol Play/Stop opsional */
+    .music-control {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.3);
+      border: 1px solid #fff;
+      border-radius: 25px;
+      padding: 10px 20px;
+      color: #fff;
+      font-weight: 600;
+      backdrop-filter: blur(5px);
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .music-control:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  </style>
 </head>
+
 <body>
+  <h1 id="title"></h1>
 
-  <div class="container">
-    <h1 class="title">I Have Something</h1>
-    <button id="openButton" class="btn">
-      ✨ Open
-    </button>
-  </div>
-
-  <!-- Pemutar Musik -->
-  <audio id="bgm">
+  <!-- === Tambahan audio background === -->
+  <audio id="bgMusic" autoplay loop>
     <source src="Andra And The Backbone - Sempurna (Lyrics).mp3" type="audio/mpeg">
-    Browser kamu tidak mendukung pemutar audio.
+    Browser kamu tidak mendukung elemen audio.
   </audio>
 
-  <script src="js/main.js"></script>
+  <!-- Tombol untuk kontrol musik -->
+  <button class="music-control" onclick="toggleMusic()">⏸️ Pause / ▶️ Play</button>
 
   <script>
-    // Ambil elemen tombol dan audio
-    const btnOpen = document.getElementById('openButton');
-    const bgm = document.getElementById('bgm');
+    // Kontrol musik
+    const bgMusic = document.getElementById('bgMusic');
+    function toggleMusic() {
+      if (bgMusic.paused) {
+        bgMusic.play();
+      } else {
+        bgMusic.pause();
+      }
+    }
 
-    // Tambahkan event listener untuk tombol
-    btnOpen.addEventListener('click', () => {
-      // Coba memutar lagu ketika tombol "Open" ditekan
-      bgm.play().catch(err => {
-        console.warn("Autoplay diblokir, user perlu klik tombol terlebih dahulu:", err);
-      });
+    // Efek teks berjalan
+    const titles = ('SELAMAT MALAM REGIA CANTIKK, SEMANGAT UTSNYAAAA YAA 💖').split('');
+    const titleElement = document.getElementById('title');
+    let index = 0;
 
-      // Arahkan ke halaman berikutnya (jika memang ada flower.html)
-      window.location.href = "flower.html";
-    });
+    function showTitle() {
+      if (index < titles.length) {
+        titleElement.textContent += titles[index];
+        index++;
+        setTimeout(showTitle, 150);
+      }
+    }
+    showTitle();
   </script>
 </body>
 </html>
