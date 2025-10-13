@@ -13,7 +13,7 @@ function type() {
   if (index < titles.length) {
     titleElement.innerHTML += titles[index];
     index++;
-    setTimeout(type, 100); // kecepatan ketikan
+    setTimeout(type, 70); // kecepatan ketikan
   }
 }
 type();
