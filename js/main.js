@@ -3,7 +3,7 @@ onload = () => {
   const c = setTimeout(() => {
     document.body.classList.remove("not-loaded");
 
-    const titles = ('SELAMAT MALAM YAAA, SEMANGAT KULIAHNYA YAA 💖').split('');
+    const titles = ('SELAMAT MALAM YAAA, SEMANGAT KULIAHNYA YAA 💖 love you to the moon and back ').split('');
 const titleElement = document.getElementById('title');
 titleElement.style.fontSize = '22px'; // lebih kecil, lebih elegan
 titleElement.style.letterSpacing = '2px'; // jarak antar huruf
