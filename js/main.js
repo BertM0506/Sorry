@@ -3,7 +3,7 @@ onload = () => {
   const c = setTimeout(() => {
     document.body.classList.remove("not-loaded");
 
-    const titles = ('Hai nica, maaf ya kalau candaku pernah melewati batas. niatku hanya ingin melihatmu tersenyum, bukan membuat hatimu terluka. ').split('');
+    const titles = ('Hai Nica, maaf ya kalau caraku bercanda melewati batas. niatku hanya ingin melihatmu tersenyum.🙇😇 ').split('');
 const titleElement = document.getElementById('title');
 titleElement.style.fontSize = '22px'; 
 titleElement.style.letterSpacing = '2px'; 
