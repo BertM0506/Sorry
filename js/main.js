@@ -3,11 +3,10 @@ onload = () => {
   const c = setTimeout(() => {
     document.body.classList.remove("not-loaded");
 
-    const titles = (' Selamat Malam Ameliaa, Semoga bumi selalu berpihak padamu💖 Semangat terus yaa 😇 ').split('');
+    const titles = ('Hai nica, maaf ya kalau candaku pernah melewati batas. niatku hanya ingin melihatmu tersenyum, bukan membuat hatimu terluka. ').split('');
 const titleElement = document.getElementById('title');
-titleElement.style.fontSize = '22px'; // lebih kecil, lebih elegan
-titleElement.style.letterSpacing = '2px'; // jarak antar huruf
-
+titleElement.style.fontSize = '22px'; 
+titleElement.style.letterSpacing = '2px'; 
 let index = 0;
 function type() {
   if (index < titles.length) {
